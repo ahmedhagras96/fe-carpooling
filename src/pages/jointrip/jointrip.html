@@ -1,0 +1,37 @@
+<!--
+  Generated template for the JointripPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>jointrip</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-item>
+        <ion-label>Day</ion-label>
+        <ion-select required="" type="text" [(ngModel)]="day" okText="Okay" cancelText="Dismiss"
+        placeholder={{userschedule?.sattype}}>
+            <ion-option *ngFor="let day of days" [value]="day" >{{day}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+          <ion-label>start</ion-label>
+          <ion-select required="" type="text" [(ngModel)]="time"   okText="Okay" cancelText="Dismiss" >
+            <ion-option *ngFor="let time of times" [value]="time">{{time}}</ion-option>
+          </ion-select>
+      </ion-item>
+      <ion-item>
+          <ion-label>Trip Type</ion-label>
+          <ion-select required="" type="text" [(ngModel)]="type"   okText="Okay" cancelText="Dismiss" >
+            <ion-option *ngFor="let type of types" [value]="type">{{type}}</ion-option>
+          </ion-select>
+      </ion-item>
+
+</ion-content>

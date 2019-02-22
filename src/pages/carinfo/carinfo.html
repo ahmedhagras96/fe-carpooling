@@ -1,0 +1,76 @@
+<!--
+  Generated template for the CarinfoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>carinfo</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <form [formGroup]="carForm" (submit)="carinfo()" novalidate>
+    <ion-item>
+        <ion-label stacked>Car Type</ion-label>
+        <ion-input formControlName="ctype" type="text" placeholder="Your Car Type"
+        [class.invalid]="!carForm.controls.ctype.valid && blur">
+        </ion-input>
+      </ion-item>
+
+      <ion-item class="error-message"
+      *ngIf="!carForm.controls.ctype.valid  &&
+      carForm.controls.ctype.touched">
+        <p>please enter your car type</p>
+      </ion-item>
+
+      <ion-item>
+          <ion-label stacked>Car Model</ion-label>
+          <ion-datetime formControlName="cmodel"  displayFormat="YYYY"
+           ></ion-datetime>
+        </ion-item>
+
+        <ion-item class="error-message"
+        *ngIf="!carForm.controls.cmodel.valid  &&
+        carForm.controls.cmodel.touched">
+          <p>please enter your car model</p>
+        </ion-item>
+
+        <ion-item>
+            <ion-label stacked>Car color</ion-label>
+            <ion-input formControlName="ccolor" type="text" placeholder="Your Car color"
+            [class.invalid]="!carForm.controls.ccolor.valid && blur">
+            </ion-input>
+          </ion-item>
+
+          <ion-item class="error-message"
+          *ngIf="!carForm.controls.ccolor.valid  &&
+          carForm.controls.ccolor.touched">
+            <p>please enter your car color</p>
+          </ion-item>
+
+          <ion-item>
+              <ion-label stacked>Car number</ion-label>
+              <ion-input formControlName="cnumber" type="text" placeholder="Your Car number"
+              [class.invalid]="!carForm.controls.cnumber.valid && blur">
+              </ion-input>
+            </ion-item>
+
+            <ion-item class="error-message"
+            *ngIf="!carForm.controls.cnumber.valid  &&
+            carForm.controls.cnumber.touched">
+              <p>please enter your car number</p>
+            </ion-item>
+
+      <button ion-button block type="submit" [disabled]="!carForm.valid">
+         Go TO Home
+        </button>
+
+
+      </form>
+
+</ion-content>

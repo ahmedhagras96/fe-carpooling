@@ -1,0 +1,139 @@
+<!--
+  Generated template for the RegesterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>AAST carpooling</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="bg-image">
+
+    <ion-item >
+     <img  class="img" [src]="this.pimage.myPhotoURL" (click)="openMenu()" >
+    </ion-item>
+
+	<form [formGroup]="signupForm" (submit)="signupUser()" novalidate>
+
+    <ion-item>
+      <ion-label stacked>Email</ion-label>
+      <ion-input formControlName="email" type="email" placeholder="Your email address"
+        [class.invalid]="!signupForm.controls.email.valid && blur">
+      </ion-input>
+    </ion-item>
+
+     <ion-item class="error-message" *ngIf="!signupForm.controls.email.valid
+    && signupForm.controls.email.touched">
+      <p>Please enter a valid email.</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Password</ion-label>
+      <ion-input formControlName="password" type="password" placeholder="Your password"
+        [class.invalid]="!signupForm.controls.password.valid && blur">
+      </ion-input>
+    </ion-item>
+
+    <ion-item class="error-message"
+    *ngIf="!signupForm.controls.password.valid  &&
+    signupForm.controls.password.touched">
+      <p>Your password needs more than 6 characters.</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Confirm Password</ion-label>
+      <ion-input formControlName="confirmpassword" type="password" placeholder="Your password"
+        [class.invalid]="!signupForm.controls.confirmpassword.valid && blur">
+      </ion-input>
+    </ion-item>
+
+      <ion-item class='form-text error' *ngIf="signupForm.controls.confirmpassword.touched && signupForm.hasError('mismatchedPasswords') && signupForm.controls.password.valid">
+        <ion-label no-margin stacked>Passwords do not match</ion-label>
+      </ion-item>
+
+
+    <ion-item>
+      <ion-label stacked>Full name</ion-label>
+      <ion-input formControlName="name" type="text" placeholder="Your name"
+      [class.invalid]="!signupForm.controls.name.valid && blur">
+      </ion-input>
+    </ion-item>
+
+    <ion-item class="error-message"
+    *ngIf="!signupForm.controls.name.valid  &&
+    signupForm.controls.name.touched">
+      <p>Your name is must not exceed 20 letters</p>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label stacked>College Id</ion-label>
+      <ion-input formControlName="id" type="number" placeholder="Your Id"
+      [class.invalid]="!signupForm.controls.id.valid && blur">
+
+      </ion-input>
+    </ion-item>
+
+    <ion-item class="error-message"
+    *ngIf="!signupForm.controls.id.valid  &&
+    signupForm.controls.id.touched">
+      <p>Your id is not correct</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Phone Number</ion-label>
+      <ion-input formControlName="phone" type="number" placeholder="Your phone number"
+      [class.invalid]="!signupForm.controls.phone.valid && blur">
+
+      </ion-input>
+    </ion-item>
+
+    <ion-item class="error-message"
+    *ngIf="!signupForm.controls.phone.valid  &&
+    signupForm.controls.phone.touched">
+      <p>please enter avalid phone number</p>
+    </ion-item>
+
+  <ion-item>
+  <ion-label>college</ion-label>
+  <ion-select required="" type="text" formControlName="college" okText="Okay" cancelText="Dismiss" (ionChange)="onCollegeChange()"  style="background-image: none !important">
+    <ion-option *ngFor="let college of collages" [value]="college">{{college}}</ion-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="error-message"
+    *ngIf="signupForm.controls.college.valid  &&
+    signupForm.controls.college.touched">
+      <p>please make sure you choose it correctly </p>
+      <p>because you cannot change it latter</p>
+    </ion-item>
+
+
+ <ion-item>
+  <ion-label>Department</ion-label>
+  <ion-select required="" type="text" formControlName="department" okText="Okay" cancelText="Dismiss" style="background-image: none !important">
+    <ion-option *ngFor="let department of departments" [value]="department">{{department}}</ion-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="error-message"
+    *ngIf="signupForm.controls.department.valid  &&
+    signupForm.controls.department.touched">
+      <p>please make sure you choose it correctly </p>
+      <p>because you cannot change it latter</p>
+    </ion-item>
+
+
+
+    <button ion-button block type="submit" [disabled]="!signupForm.valid">
+      Create an Account
+    </button>
+
+  </form>
+</ion-content>
