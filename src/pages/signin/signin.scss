@@ -6,12 +6,26 @@ page-signin {
     background-size: fill;
 }
 
+.font_style{
+  position: relative;
+  top: 3%;
+  bottom: 1%;
+  text-align: center;
+  font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
+  font-size: 28px;
+}
 
   form {
     margin-bottom: 32px;
     button {
       margin-top: 20px !important;
     }
+  }
+
+  .font_style{
+    text-align: center;
+    font-size: 28px;
+    font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
   }
 
   p {

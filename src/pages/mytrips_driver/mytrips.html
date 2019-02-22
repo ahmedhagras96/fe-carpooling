@@ -1,0 +1,50 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+    <!-- <ion-row>
+
+      <ion-col col-2> -->
+        <ion-buttons>
+        <button ion-button clear icon-only (click)="returntojoin()">
+            <ion-icon  name="arrow-round-back"></ion-icon>
+        </button>
+        </ion-buttons>
+      <!-- </ion-col>
+
+<ion-col col-3></ion-col>
+
+      <ion-col col-7> -->
+        <ion-buttons end>
+        <button ion-button clear (click)="trips_passenger()">
+          Trips As A Passenger
+            <ion-icon  name="arrow-round-forward"></ion-icon>
+        </button>
+        </ion-buttons>
+      <!-- </ion-col>
+
+    </ion-row> -->
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="bg-image">
+
+       <ion-label class="font_style" >Trips As A Driver</ion-label>
+
+  <ion-list class="my-menu ">
+    <ion-item *ngFor ="let trip of driver_trips">
+        <button ion-button full color="dark" round (click)="opentripmodule(trip.locations[0].lat,trip.locations[0].lang,trip.date,
+        trip.time,trip.type,trip.tpass1id,trip.tpass2id,trip.tpass3id,trip.id)">
+        <h2 style="color:aliceblue">{{trip.type}}</h2><h3 style="color:aliceblue">{{trip.date}}</h3>
+          <!-- <h5 style="color:aliceblue">{{trip.time}}</h5> -->
+        </button><br>
+        <button round full ion-icon ion-button (click)="launchLocationview(trip.locations[0].lat,trip.locations[0].lang)">
+              <ion-icon name="locate"></ion-icon>
+                  Trip location
+                  <ion-icon name="arrow-forward" style="float:right;" ></ion-icon>
+        </button>
+    </ion-item>
+</ion-list>
+
+</ion-content>

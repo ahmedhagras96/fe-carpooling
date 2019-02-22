@@ -7,13 +7,12 @@ import { EmailValidator } from '../../validators/email';
 import { idvalidator } from '../../validators/id';
 import { collegeval } from '../../validators/collegeval';
 
-import { AngularFireAuth } from 'angularfire2/auth';
+// import { AngularFireAuth } from 'angularfire2/auth';
 
-import { pimage } from '../../providers/pimage/pimage';
+// import { pimage } from '../../providers/pimage/pimage';
 import { AuthProvider } from '../../providers/auth/auth';
-import { HomePage } from '../home/home';
-import firebase from 'firebase';
-import { CarownershipPage } from '../carownership/carownership';
+import { UserService } from '../services/user.service';
+import { SetlocationPage } from '../setlocation/setlocation';
 
 @IonicPage({
   name: 'signup'
@@ -29,9 +28,12 @@ export class RegesterPage  {
    public loading: Loading;
    public uuid: string;
    public myPhoto :any;
+   public user : any = {};
+   public myPhotoURL:any = 'assets/imgs/head edited.png';
+   public car:object ;
 
   form: FormGroup;
- collages = ['Engineer', 'ComputerScience'];
+  collages = ['Engineer', 'ComputerScience'];
   depincolleges = {
    Engineer: ["Construction and Building Engineering " , "Architectural Engineering", "Computer Engineering",
        "Electrical & Control Engineering", "Electronics & Communications Engineering", "Mechanical Engineering"],
@@ -40,11 +42,12 @@ export class RegesterPage  {
    departments = [];
 
   constructor(
+   public userService: UserService,
    public navCtrl: NavController,
    public navParams: NavParams,
-   public auth:AngularFireAuth,
+  //  public auth:AngularFireAuth,
    public authProvider: AuthProvider,
-   public pimage: pimage,
+  //  public pimage: pimage,
    public formBuilder: FormBuilder,
    public loadingCtrl: LoadingController,
    public alertCtrl: AlertController,
@@ -52,7 +55,6 @@ export class RegesterPage  {
    fb: FormBuilder,
    private _cdr: ChangeDetectorRef,
    public actionSheetCtrl: ActionSheetController,
-
    ) {
 
 
@@ -78,91 +80,62 @@ export class RegesterPage  {
 
 
 
- openMenu() {
-  let actionSheet = this.actionSheetCtrl.create({
-    title: 'Add your picture with',
-    cssClass: 'action-sheets-basic-page',
-    buttons: [
-      {
-        text: 'Camera',
-        role: 'takePhoto()',
-
-        handler: () => {
-          this.pimage. openCamera();
-          console.log('camera clicked');
-        }
-      },
-      {
-        text: 'Gallery',
-        role: 'selectPhoto()',
-        handler: () => {
-          this.pimage. openImagePickerCrop();
-          console.log('Gallery clicked');
-        }
-      },
-
-      {
-        text: 'Cancel',
-        role: 'cancel', // will always sort to be on the bottom
-        handler: () => {
-          console.log('Cancel clicked');
-        }
-      }
-    ]
-  });
-  actionSheet.present();
-}
-
-
-
-
-
-
-
 signupUser(): void {
  console.log("I'm here in signup");
-
-
   if (!this.signupForm.valid) {
     console.log(
       `Need to complete the form, current value: ${this.signupForm.value}`
     );
   } else {
-    console.log("I'm here in else");
-    const email: string = this.signupForm.value.email;
-    const password: string = this.signupForm.value.password;
-    const name: string = this.signupForm.value.name;
-    const id: string = this.signupForm.value.id;
-    const phone: string = this.signupForm.value.phone;
-    const confirmpassword: string = this.signupForm.value.confirmpassword;
-    const college: string = this.signupForm.value.college;
-    const department: string = this.signupForm.value.department;
-    this.pimage.uploadPhoto(this.myPhoto);
-    this.uuid=this.pimage.photoUIID;
-    console.log(this.uuid);
+    this.user['name'] = this.signupForm.value.name;
+    this.user['email'] = this.signupForm.value.email;
+    this.user['phone'] = this.signupForm.value.phone
+    this.user['code'] = this.signupForm.value.id;
+    this.user['password'] = this.signupForm.value.password;
+    this.user['confirm_password'] = this.signupForm.value.confirmpassword;
+    this.user['collage'] = this.signupForm.value.college;
+    this.user['department'] = this.signupForm.value.department;
 
-
-
-    this.authProvider.signupUser(email, password,confirmpassword, name, id, phone,college,
-      department,this.uuid)
-    .then(
-      user => {
-        this.loading.dismiss().then(() => {
-          this.navCtrl.setRoot(CarownershipPage);
-        });
-      },
-      error => {
-        this.loading.dismiss().then(() => {
-          const alert: Alert = this.alertCtrl.create({
-            message: error.message,
-            buttons: [{ text: "Ok", role: "cancel" }]
-          });
-          alert.present();
-        });
-      }
-    );
     this.loading = this.loadingCtrl.create();
     this.loading.present();
+
+    this.userService.register(this.user)
+    .subscribe(
+      user => {
+        this.loading.dismiss().then(() => {
+  let user_data = JSON.parse(user["_body"]).Data;
+
+        localStorage.setItem("key" , user_data["token"]);
+
+        this.navCtrl.setRoot(SetlocationPage, { userId: user_data["user_details"].id});
+        });
+
+      },
+      error => {
+        console.log(error);
+        if(error["status"] == 500){
+          this.loading.dismiss().then(() => {
+            const alert: Alert = this.alertCtrl.create({
+              message: "Invalid Data [Duplicate Email or Id] !!",
+              buttons: [{ text: "Ok", role: "cancel" }],
+
+            });
+            alert.present();
+          });
+        }else{
+          this.loading.dismiss().then(() => {
+            const alert: Alert = this.alertCtrl.create({
+              message: JSON.parse(error["_body"]).Message,
+              buttons: [{ text: "Ok", role: "cancel" }],
+
+            });
+            alert.present();
+          });
+        }
+
+      }
+    );
+
   }
 
 }
@@ -183,12 +156,9 @@ matchingPasswords(passwordKey: string, confirmpasswordKey: string) {
 
 
   onCollegeChange(): void {
-    console.log("Depart");
     let college = this.signupForm.get('college').value;
     this.departments = this.depincolleges[college];
     this._cdr.detectChanges();
-    console.log("Depart" );
-    console.log("Test", this.departments);
     }
 
 

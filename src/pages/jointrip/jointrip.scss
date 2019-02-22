@@ -1,3 +1,85 @@
 page-jointrip {
+  .bg-image{
+    background-image: url('../assets/imgs/ak3.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: fill;
+}
+
+.font_style{
+  position: relative;
+  top: 8%;
+  bottom: 4%;
+  text-align: center;
+  font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
+  font-size: 28px;
+  color:rgb(54, 139, 250);
+}
+
+.font_style_pts{
+  position: relative;
+  top: 6%;
+  text-align: center;
+  font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  color:rgb(54, 139, 250);
+}
+
+.font {
+  position: relative;
+  text-align: center;
+  top: 10%;
+  font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
+  font-size: 25px;
+  color:rgb(54, 139, 250);
+}
+
+.img {
+  border-radius: 50%;
+  border: 3px solid #ddd;
+  width: 40%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fontsmall{
+  position: relative;
+  text-align: center;
+  top: 8%;
+  font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  color:rgb(54, 139, 250);
+}
+
+.no-color{
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.button1{
+  left: 30%;
+}
+
+.space{
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.my-menu {
+  background-color: rgba(0, 0, 0, 0.322);
+  position: relative;
+  border: 3px solid rgb(54, 139, 250);
+  border-radius: 10px;
+  }
+
+  .my-menu .item, .my-menu .item-content, .my-menu .item-complex{
+    background-color: rgba(0, 0, 0, 0);
+    color: #FFFFFF;
+
+    }
+
+  .white-font{
+    color:aliceblue
+  }
 
 }

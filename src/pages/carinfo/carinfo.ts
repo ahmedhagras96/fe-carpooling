@@ -1,15 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,Loading, LoadingController,Alert,
   AlertController,ToastController,} from 'ionic-angular';
-import { FormBuilder,FormControl,FormGroup, Validators } from '@angular/forms';
-import { ProfileProvider } from "../../providers/profile/profile";
-import { HomePage } from '../home/home';
-/**
- * Generated class for the CarinfoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { FormBuilder,FormGroup, Validators } from '@angular/forms';
+import { CarService } from '../services/car.service';
+import { JointripPage } from '../jointrip/jointrip';
+import { MaketripPage } from '../maketrip/maketrip';
+
 
 @IonicPage()
 @Component({
@@ -21,6 +17,10 @@ export class CarinfoPage {
    public loading: Loading;
    public college: string ;
    public userProfile: any;
+   public car: any = {};
+   public first_time:boolean=false;
+   public userId:number;
+   public no_car:boolean=false;
 
   constructor(
      public navCtrl: NavController,
@@ -29,7 +29,7 @@ export class CarinfoPage {
      public loadingCtrl: LoadingController,
      public alertCtrl: AlertController,
      public toastCtrl: ToastController,
-     public profileProvider: ProfileProvider,)
+     public carService: CarService)
 
     {
     this.carForm = formBuilder.group({
@@ -41,8 +41,9 @@ export class CarinfoPage {
         Validators.compose([Validators.required])],
         cnumber: ['',
         Validators.compose([Validators.required])],
-
     })
+    this.userId = navParams.get("userId");
+    this.no_car = navParams.get("no_car");
   }
 
   carinfo(): void {
@@ -55,16 +56,23 @@ export class CarinfoPage {
        );
      } else {
        console.log("I'm here in else");
-       const ctype: string = this.carForm.value.ctype;
-       const cmodel: string = this.carForm.value.cmodel;
-       const ccolor: string = this.carForm.value.ccolor;
-       const cnumber:number = this.carForm.value.cnumber;
 
-       this.profileProvider.updatecarinfo(ctype, cmodel,ccolor, cnumber)
-       .then(
-         user => {
+       this.car["number"] = this.carForm.value.cnumber;
+       this.car["type"] = this.carForm.value.ctype;
+       this.car["color"] = this.carForm.value.ccolor;
+       this.car["model"] = this.carForm.value.cmodel;
+
+       this.carService.createCar(this.car)
+       .subscribe(
+         data => {
            this.loading.dismiss().then(() => {
-             this.navCtrl.setRoot(HomePage);
+             console.log(data);
+             if(this.no_car==true){
+              this.navCtrl.setRoot(JointripPage,{userId:this.userId})
+             }
+             else{
+             this.navCtrl.setRoot(MaketripPage,{first_time:this.first_time=true,userId:this.userId});
+            }
            });
          },
          error => {
@@ -86,6 +94,9 @@ export class CarinfoPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CarinfoPage');
+    console.log('user id is '+this.userId);
+
+
 }
 
 }

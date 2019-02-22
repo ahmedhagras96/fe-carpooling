@@ -7,6 +7,8 @@
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
 
+
+
   <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4e8ef7">
@@ -16,6 +18,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
   <!-- cordova.js required for cordova apps (remove if not needed) -->
+  <script src="js/app.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaw1jCkBVpMcZv7qIVAiHJ5gxm1vCor6k" type="text/javascript"></script>
+
   <script src="cordova.js"></script>
 
   <!-- un-comment this code to enable service worker
@@ -32,9 +37,12 @@
 </head>
 <body>
 
+    <!-- <meta http-equiv=“Content-Security-Policy” content=“default-src ‘self’ gap://ready file://* *;
+     style-src ‘self’ ‘unsafe-inline’; script-src ‘self’ ‘unsafe-inline’ ‘unsafe-eval’”/> -->
+
   <!-- Ionic's root component and where the app will load -->
   <ion-app></ion-app>
-
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaw1jCkBVpMcZv7qIVAiHJ5gxm1vCor6k"></script>
   <!-- The polyfills js is generated during the build process -->
   <script src="build/polyfills.js"></script>
 
@@ -44,6 +52,6 @@
 
   <!-- The main bundle js is generated during the build process -->
   <script src="build/main.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaw1jCkBVpMcZv7qIVAiHJ5gxm1vCor6k"></script>
+
 </body>
 </html>

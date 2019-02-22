@@ -1,23 +1,45 @@
 
   page-profile {
-    ion-item ion-label {
-      margin: 0 !important;
+    // .ion-item ion-label {
+    //   margin: 0 !important;
+    // }
+
+    // ion-list {
+    //   margin: 0;
+    //   padding: 0;
+    // }
+
+    // ion-list-header {
+    //   background-color: #ECECEC;
+    //   margin: 0;
+    //   padding: 0;
+    // }
+
+    // ion-item { padding: 0 !important; }
+
+    // ion-datetime { padding-left: 3px !important; }
+
+    .text-input::-moz-placeholder {
+      color: white;
     }
 
-    ion-list {
-      margin: 0;
-      padding: 0;
+    .text-input:-ms-input-placeholder {
+      color: white;
     }
 
-    ion-list-header {
-      background-color: #ECECEC;
-      margin: 0;
-      padding: 0;
+    ion-col.someclass {
+      text-align: center;
     }
 
-    ion-item { padding: 0 !important; }
+.right{
+  float: left;
+  margin-right: 0%
+}
 
-    ion-datetime { padding-left: 3px !important; }
+    .text-input::-webkit-input-placeholder {
+      text-indent: 0;
+      color: white;
+    }
 
     .item-inner {
       border: none !important;
@@ -37,6 +59,10 @@
       color: #CCCCCC;
     }
 
+    .value-profile {
+      color: #CCCCCC;
+    }
+
     .dob-label {
       color: #000000 !important;
       padding: 10px !important;
@@ -52,11 +78,38 @@
       margin-right: auto;
     }
 
+    .font_style{
+      position: relative;
+      top: 1%;
+      text-align: center;
+      font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
+      font-size: 28px;
+      color:rgb(54, 139, 250);
+    }
+
+    .my-menu {
+      background-color: rgba(0, 0, 0, 0.322);
+      position: relative;
+      border: 3px solid rgb(54, 139, 250);
+      border-radius: 10px;
+      }
+
+      .my-menu .item, .my-menu .item-content, .my-menu .item-complex{
+        background-color: rgba(0, 0, 0, 0);
+        color: #FFFFFF;
+
+        }
+
     .bg-image{
       background-image: url('../assets/imgs/ak3.png');
       background-repeat: no-repeat;
       background-position: center;
       background-size: fill;
 }
+
+img:hover {
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
   }
 

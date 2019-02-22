@@ -7,62 +7,44 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>prizes</ion-title>
+    <!-- <ion-title>prizes</ion-title> -->
+    <ion-row>
+      <ion-col col-2>
+        <ion-buttons>
+          <button ion-button icon-only clear (click)="returntojoin()">
+            <ion-icon name="arrow-round-back"></ion-icon>
+          </button>
+        </ion-buttons>
+      </ion-col>
+
+      <ion-col col-6>
+        <img [src]="this.myPhotoURL">
+      </ion-col>
+
+      <ion-col col-4>
+      </ion-col>
+    </ion-row>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding class="bg-image">
-    <ion-item>
-        <ion-label>category1(50pts)</ion-label>
-      </ion-item>
-      <ion-item>
-          <button ion-button clear>Button</button>
-      </ion-item>
 
-      <div><p><br></p></div>
+    <ion-label class="font_style">Rewards </ion-label>
+    <ion-label class="font_style_pts">Reward pts:{{user.points}}  </ion-label>
 
-      <ion-item>
-          <ion-label>category2(100pts)</ion-label>
-        </ion-item>
+    <div *ngFor="let prize of all_prizes" >
+      <ion-list class="my-menu ">
         <ion-item>
-            <button ion-button clear>Button</button>
-      </ion-item>
-
-      <div><p><br></p></div>
-
-      <ion-item>
-          <ion-label>category3(500pts)</ion-label>
+          <ion-label>{{prize.name}}({{prize.points}})</ion-label>
         </ion-item>
-        <ion-item>
-            <button ion-button clear>Button</button>
-      </ion-item>
-
-      <div><p><br></p></div>
-
-      <ion-item>
-          <ion-label>category4(1000pts)</ion-label>
+        <ion-item >
+            <button ion-button round full (click)="alert_prize(prize.points)">Get Prize</button>
         </ion-item>
-        <ion-item>
-            <button ion-button clear>Button</button>
-      </ion-item>
+      </ion-list>
 
-      <div><p><br></p></div>
+        <div><p><br></p></div>
+    </div>
 
-      <ion-item>
-          <ion-label>category5(2000pts)</ion-label>
-        </ion-item>
-        <ion-item>
-            <button ion-button clear>Button</button>
-      </ion-item>
-
-      <div><p><br></p></div>
-
-      <ion-item>
-          <ion-label>category6(3000pts)</ion-label>
-        </ion-item>
-        <ion-item>
-            <button ion-button clear>Button</button>
-      </ion-item>
 </ion-content>

@@ -1,0 +1,202 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+
+    <ion-buttons>
+      <button ion-button clear left icon-only (click)="return_to_driver()" *ngIf="check_driver">
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons>
+      <button ion-button clear left icon-only (click)="return_to_passenger()" *ngIf="check_passenger==true">
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons end>
+      <button ion-button icon-only right clear name="delete_trip" (click)="delete_trip()" *ngIf="check_driver"
+        [disabled]="1 >= drivertrips_num">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons end>
+      <button ion-button right clear (click)="getout()" *ngIf="!check_driver">
+        Leave trip
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content padding class="bg-image">
+
+
+      <ion-item class="error-message" *ngIf="1 >= drivertrips_num">
+          <p>You must have one trip at least</p>
+        </ion-item>
+
+
+
+    <ion-label color="primary" class="first_font_style"  >
+        Trip Information
+    </ion-label>
+    <ion-list class="my-menu">
+        <ion-item>
+            <ion-label>Trip Date:</ion-label>
+            <ion-label>{{trip_date}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Trip Type:</ion-label>
+            <ion-label>{{trip_type}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Trip Time:</ion-label>
+          <ion-label>{{trip_time}}</ion-label>
+      </ion-item>
+     </ion-list>
+
+     <ion-label color="primary" class="font_style"  >
+        Driver Information
+    </ion-label>
+     <ion-list class="my-menu">
+        <ion-item>
+            <ion-label>Driver Name:</ion-label>
+            <ion-label>{{trip_drivername}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Driver Phone:</ion-label>
+            <ion-label>{{trip_driverphone}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Collage:</ion-label>
+            <ion-label>{{trip_drivercollage}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Department:</ion-label>
+            <ion-label>{{trip_driverdepartment}}</ion-label>
+        </ion-item>
+     </ion-list>
+
+     <ion-label color="primary" class="font_style">
+        Car Information
+    </ion-label>
+
+    <ion-list class="my-menu">
+        <ion-item>
+            <ion-label>car Type:</ion-label>
+            <ion-label>{{car_type}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Car Module:</ion-label>
+            <ion-label>{{car_module}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Car color:</ion-label>
+            <ion-label>{{car_color}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Car number:</ion-label>
+            <ion-label>{{car_number}}</ion-label>
+        </ion-item>
+     </ion-list>
+
+     <ion-label color="primary" class="font_style">
+        Passengers
+    </ion-label>
+
+    <ion-list class="my-menu">
+            <ion-item *ngFor ="let passenger of passengers">
+                <h2 style="color:aliceblue">{{passenger.name}}     {{passenger.phone}}</h2>
+                <h2 style="color:aliceblue">{{passenger.collage}} </h2>
+                <h2 style="color:aliceblue">{{passenger.department}}</h2>
+                      <button round full ion-icon ion-button *ngIf="driver_id == userId"
+                       (click)="launchLocationview(passenger.lat,passenger.lang)">
+                          <ion-icon name="locate"></ion-icon>
+                              Passenger location
+                              <ion-icon name="arrow-forward" style="float:right;" ></ion-icon>
+                      </button>
+              <ion-row *ngIf="driver_id == userId && passenger.is_confirm == 0" [hidden]="pass_confrim ==true">
+                  <ion-col width-50>
+                      <button ion-button full color="dark"  round (click)="confirm(1, passenger.id)" >
+                          Confirm
+                      </button>
+                  </ion-col>
+                  <ion-col width-50>
+                      <button ion-button full color="dark"  round (click)="confirm(0, passenger.id)" >
+                          Not Confirm
+                      </button>
+                  </ion-col>
+                </ion-row>
+            </ion-item>
+     </ion-list>
+
+
+    <ion-list class="my-menu1">
+<ion-label color="danger" *ngIf="duration >= 0 && 30 >= duration">
+  <b>Please</b> don't forget open location and internet of your <br>phone before click join,Add and end trip</ion-label>
+
+  <ion-label color="danger" *ngIf="duration >= 0 && 30 >= duration && driver_id == userId">
+  "Don't Add passenger to trip until you be with him <br>and he joined to trip and before you move"</ion-label>
+
+  <ion-label color="danger" *ngIf="duration >= 0 && 30 >= duration && driver_id == userId">
+  "<b>Please</b>don't end trip until all passenger end it "</ion-label>
+
+   <ion-label color="danger" *ngIf="duration >= 0 && 30 >= duration && driver_id != userId">
+  "Don't join to trip until you be<br> with driver and before he move"</ion-label>
+
+
+     <button ion-button block round
+      *ngIf="duration >= 0 && 30 >= duration && driver_id != userId && trip_type == 'Go To Academy'"
+      [disabled]="check_confirm != true"
+       (click)="passenger_start_go()">
+       join Trip
+      </button>
+
+      <button ion-button block round
+       *ngIf="duration >= 0 && 30 >= duration && driver_id != userId && trip_type == 'Return From Academy'"
+       [disabled]="check_confirm != true"
+       (click)="passenger_start_return()">
+       join Trip
+      </button>
+
+      <ion-label color="danger" *ngIf="check_confirm != true && driver_id != userId ">
+        "Driver not confirmed you yet"</ion-label>
+
+      <button ion-button block round
+       *ngIf="duration >= 0 && 30 >= duration && driver_id != userId && trip_type == 'Go To Academy'"
+       [disabled]=""
+        (click)="passenger_end_go()">
+       End Trip
+      </button>
+      <button ion-button block round
+       *ngIf="duration >= 0 && 30 >= duration && driver_id != userId && trip_type == 'Return From Academy'"
+        (click)="passenger_end_return()">
+       End Trip
+      </button>
+
+     <button ion-button block round
+     *ngIf="duration >= 0 && 30 >= duration && driver_id == userId"
+     (click)="driver_start()">
+       Add Passenger
+      </button>
+
+      <ion-list *ngIf="start_driver_clicked == true">
+          <div  *ngFor ="let passenger of show_pass_start">
+            <p>{{passenger.name}} is {{passenger.condition}}</p>
+          </div>
+      </ion-list>
+
+      <button ion-button block round
+      *ngIf="duration >= 0 && 30 >= duration && driver_id == userId "
+      (click)="alert_end()">
+          End Trip
+         </button>
+
+        </ion-list>
+
+</ion-content>

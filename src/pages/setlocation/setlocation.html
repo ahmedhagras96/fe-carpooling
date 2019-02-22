@@ -1,0 +1,35 @@
+
+
+<ion-content padding  class="bg-image">
+
+    <div><p><br></p></div>
+    <div><p><br></p></div>
+
+    <ion-label color="primary" class="font_style" >
+        <h2>Set Your Location</h2>
+        <h2> As A Passenger</h2>
+    </ion-label>
+
+    <ion-label color="primary" class="font_style" >
+        <h4>"You can change it later"</h4>
+    </ion-label>
+
+    <div><p><br></p></div>
+
+    <div style="text-align: center;">
+          <button round full ion-icon ion-button  (click)="startloc()">
+              <ion-icon name="locate"></ion-icon>
+                  Your Location
+                  <ion-icon name="arrow-forward" style="float:right;" ></ion-icon>
+        </button>
+    </div>
+
+<div><p><br></p></div>
+
+    <div style="text-align: center;">
+        <button ion-button full round [disabled]="setloc != true" (click)="save_andto_carinfo()">
+            Next
+          </button>
+        </div>
+
+</ion-content>

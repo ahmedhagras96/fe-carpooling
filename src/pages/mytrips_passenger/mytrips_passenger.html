@@ -1,0 +1,65 @@
+<!--
+  Generated template for the TripPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header>
+
+    <ion-navbar color="primary">
+      <!-- <ion-row>
+
+        <ion-col col-2> -->
+          <ion-buttons>
+          <button ion-button clear icon-only (click)="returntojoin()">
+              <ion-icon  name="arrow-round-back"></ion-icon>
+          </button>
+          </ion-buttons>
+        <!-- </ion-col>
+
+  <ion-col col-4></ion-col>
+
+        <ion-col col-6> -->
+          <ion-buttons end>
+            <button ion-button clear (click)="trips_driver()">
+              Trips As A Driver
+              <ion-icon  name="arrow-round-forward"></ion-icon>
+            </button>
+          </ion-buttons>
+        <!-- </ion-col>
+
+      </ion-row> -->
+    </ion-navbar>
+  </ion-header>
+
+<ion-content padding class="bg-image">
+
+    <!-- <ion-item class="right" no-lines full>
+        <button ion-button   clear color="primary" icon-only (click)="returntojoin()">
+            <h3><ion-icon color="primary" name="arrow-round-back"></ion-icon></h3>
+        </button>
+        <button ion-button item-end clear color="primary"  (click)="trips_driver()">
+           <h3>Trips As A Driver
+            <ion-icon color="primary" name="arrow-round-forward"></ion-icon></h3>
+        </button>
+      </ion-item> -->
+
+ <ion-label class="font_style">Trips As A Passenger</ion-label>
+
+  <ion-list class="my-menu ">
+      <ion-item *ngFor ="let trip of user_trips">
+        <button ion-button full round color="dark" (click)="opentripmodule(trip.trips.date,
+        trip.trips.time,trip.trips.type,trip.trips.id)">
+        <h2 style="color:aliceblue">{{trip.trips.type}}</h2><h3 style="color:aliceblue">{{trip.trips.date}}</h3>
+          <!-- <h5 style="color:aliceblue">{{trip.trips.time}}</h5> -->
+          <!-- <button style="color:aliceblue">{{trip.trips.id}}</button> -->
+        </button><br>
+        <button round full ion-icon ion-button (click)="launchLocationview(trip.trips.locations[0].lat,trip.trips.locations[0].lang)">
+              <ion-icon name="locate"></ion-icon>
+                  Trip location
+                  <ion-icon name="arrow-forward" style="float:right;" ></ion-icon>
+        </button>
+      </ion-item>
+   </ion-list>
+</ion-content>

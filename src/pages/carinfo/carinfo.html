@@ -1,22 +1,17 @@
-<!--
-  Generated template for the CarinfoPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar color="primary">
-    <ion-title>carinfo</ion-title>
-  </ion-navbar>
-
-</ion-header>
 
 
-<ion-content padding>
+
+<ion-content padding  class="bg-image">
+
+    <ion-label color="primary" class="font_style"  >
+        Your Car Data
+    </ion-label>
+
+   <ion-list class="my-menu">
     <form [formGroup]="carForm" (submit)="carinfo()" novalidate>
+
     <ion-item>
-        <ion-label stacked>Car Type</ion-label>
+        <ion-label stacked style="color:aliceblue">Car Type</ion-label>
         <ion-input formControlName="ctype" type="text" placeholder="Your Car Type"
         [class.invalid]="!carForm.controls.ctype.valid && blur">
         </ion-input>
@@ -29,7 +24,7 @@
       </ion-item>
 
       <ion-item>
-          <ion-label stacked>Car Model</ion-label>
+          <ion-label stacked style="color:aliceblue">Car Model</ion-label>
           <ion-datetime formControlName="cmodel"  displayFormat="YYYY"
            ></ion-datetime>
         </ion-item>
@@ -41,7 +36,7 @@
         </ion-item>
 
         <ion-item>
-            <ion-label stacked>Car color</ion-label>
+            <ion-label stacked style="color:aliceblue">Car color</ion-label>
             <ion-input formControlName="ccolor" type="text" placeholder="Your Car color"
             [class.invalid]="!carForm.controls.ccolor.valid && blur">
             </ion-input>
@@ -54,7 +49,7 @@
           </ion-item>
 
           <ion-item>
-              <ion-label stacked>Car number</ion-label>
+              <ion-label stacked style="color:aliceblue">Car number</ion-label>
               <ion-input formControlName="cnumber" type="text" placeholder="Your Car number"
               [class.invalid]="!carForm.controls.cnumber.valid && blur">
               </ion-input>
@@ -66,11 +61,10 @@
               <p>please enter your car number</p>
             </ion-item>
 
-      <button ion-button block type="submit" [disabled]="!carForm.valid">
-         Go TO Home
+      <button ion-button block round type="submit" [disabled]="!carForm.valid">
+        Next
         </button>
 
-
       </form>
-
+    </ion-list>
 </ion-content>

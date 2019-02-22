@@ -1,0 +1,119 @@
+
+<ion-header>
+
+    <ion-navbar color="primary">
+        <ion-title class="my-title" > {{trip_date}}/{{trip_type}} </ion-title>
+
+        <ion-buttons  right>
+          <button  ion-button  (click)="userJoinTrip()"
+           [disabled]="driver_id == userId || user_joined==true || passengers_length >= 3 ||
+            same_passenger_trip == true || same_driver_trip == true ">
+              Join Trip
+          </button>
+      </ion-buttons>
+
+      <ion-buttons  left>
+          <button  ion-button icon-only  (click)="close()">
+              <ion-icon name="arrow-round-back"></ion-icon>
+          </button>
+      </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding  class="bg-image">
+
+    <ion-item class="error-message" *ngIf="driver_id == userId">
+      <p>You are the owner of these trip</p>
+    </ion-item>
+
+    <ion-item class="error-message" *ngIf="passengers_length >= 3 && driver_id != userId  ">
+      <p>These Trip is passenger full</p>
+    </ion-item>
+
+    <ion-item class="error-message" *ngIf="user_joined==true">
+      <p>You are already joind to these trip.</p>
+    </ion-item>
+
+    <ion-item class="error-message" *ngIf="same_passenger_trip==true && user_joined != true">
+      <p>You can not join to this trip because you have<br>
+        the same trip type in this day as passenger.</p>
+    </ion-item>
+
+    <ion-item class="error-message" *ngIf="same_driver_trip==true && driver_id != userId">
+      <p>You can not join to this trip because you have<br>
+        the same trip type in this day as driver.</p>
+    </ion-item>
+
+    <ion-label color="primary" class="font_style"  >
+        Trip Information
+    </ion-label>
+    <ion-list class="my-menu">
+        <ion-item>
+            <ion-label>Trip Date:</ion-label>
+            <ion-label>{{trip_date}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Trip Type:</ion-label>
+            <ion-label>{{trip_type}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Trip Time:</ion-label>
+          <ion-label>{{trip_time}}</ion-label>
+      </ion-item>
+     </ion-list>
+
+     <ion-label color="primary" class="font_style">
+        Driver Information
+    </ion-label>
+
+     <ion-list class="my-menu">
+        <ion-item>
+            <ion-label>Driver Name:</ion-label>
+            <ion-label>{{trip_drivername}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Driver Phone:</ion-label>
+            <ion-label>{{trip_driverphone}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>College:</ion-label>
+            <ion-label>{{trip_drivercollage}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>College:</ion-label>
+            <ion-label>{{trip_driverdepartment}}</ion-label>
+        </ion-item>
+     </ion-list>
+
+     <ion-label color="primary" class="font_style">
+        Car Information
+    </ion-label>
+
+     <ion-list class="my-menu">
+        <ion-item>
+            <ion-label>car Type:</ion-label>
+            <ion-label>{{car_type}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Car Module:</ion-label>
+            <ion-label>{{car_module}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Car color:</ion-label>
+            <ion-label>{{car_color}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Car number:</ion-label>
+            <ion-label>{{car_number}}</ion-label>
+        </ion-item>
+     </ion-list>
+
+     <ion-list class="my-menu">
+        <ion-item *ngFor ="let passenger of passengers">
+            <h2 style="color:aliceblue">{{passenger.name}}     {{passenger.phone}}</h2>
+            <h2 style="color:aliceblue">{{passenger.collage}} </h2>
+            <h2 style="color:aliceblue">{{passenger.department}}</h2>
+        </ion-item>
+ </ion-list>
+
+</ion-content>

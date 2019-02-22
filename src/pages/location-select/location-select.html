@@ -1,0 +1,50 @@
+
+<ion-header>
+  <ion-navbar color="primary">
+      <ion-buttons *ngIf="mt==true"  left>
+          <button ion-button (click)="returnto_maketrip()">Cancel</button>
+      </ion-buttons>
+      <ion-buttons *ngIf="mt==true" right>
+          <button  ion-button (click)="save()">Save</button>
+      </ion-buttons>
+      <ion-buttons *ngIf="setloc==true && saveloc!=true" right>
+          <button  ion-button (click)="save_setlocation()">Save</button>
+      </ion-buttons>
+      <ion-buttons *ngIf="saveloc==true" right>
+          <button  ion-button (click)="save_savelocation()">Save</button>
+      </ion-buttons>
+      <ion-buttons  *ngIf="myt==true && check_passenger != true && check_trip != true" left>
+          <button  ion-button icon-only (click)="returnto_mytrips()">
+              <ion-icon name="arrow-round-back"></ion-icon>
+          </button>
+      </ion-buttons>
+      <ion-buttons  *ngIf="check_passenger==true" left>
+          <button  ion-button icon-only (click)="returnto_passenger()">
+              <ion-icon name="arrow-round-back"></ion-icon>
+          </button>
+      </ion-buttons>
+      <ion-buttons  *ngIf="check_trip==true" left>
+          <button  ion-button icon-only (click)="returnto_mytrip()">
+              <ion-icon name="arrow-round-back"></ion-icon>
+          </button>
+      </ion-buttons>
+      <ion-buttons  *ngIf="jt==true" left>
+          <button  ion-button icon-only (click)="returnto_jointrip()">
+              <ion-icon name="arrow-round-back"></ion-icon>
+          </button>
+      </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+  <div #pleaseConnect id="please-connect">
+      <p>Please connect to the Internet...</p>
+  </div>
+
+  <div #map id="map">
+       <ion-spinner></ion-spinner>
+  </div>
+
+</ion-content>

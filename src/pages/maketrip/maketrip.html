@@ -1,60 +1,89 @@
-<!--
-  Generated template for the SchedulePage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
+<ion-content padding  class="bg-image">
 
-  <ion-navbar color="primary">
-    <ion-title>schedule</ion-title>
-  </ion-navbar>
+    <ion-label color="primary" class="font_style" *ngIf="first_time == true" >
+        Create Your First Trip
+    </ion-label>
 
-</ion-header>
+    <ion-label color="primary" class="font_style" *ngIf="first_time != true" >
+        Create A New Trip
+    </ion-label>
 
+    <ion-label color="primary" class="font_style_tag" *ngIf="first_time == true" >
+        Make sure you made at least one trip
+    </ion-label>
 
-<ion-content padding class="bg-image">
-
-            <ion-item>
-              <ion-label>Day</ion-label>
-              <ion-select required="" type="text" [(ngModel)]="day" okText="Okay" cancelText="Dismiss"
-              placeholder={{userschedule?.sattype}}>
-                  <ion-option *ngFor="let day of days" [value]="day" >{{day}}</ion-option>
-              </ion-select>
-            </ion-item>
-            <ion-item>
-                <ion-label>start</ion-label>
-                <ion-select required="" type="text" [(ngModel)]="time"   okText="Okay" cancelText="Dismiss" >
-                  <ion-option *ngFor="let time of times" [value]="time">{{time}}</ion-option>
-                </ion-select>
-            </ion-item>
-            <ion-item>
-                <ion-label>Trip Type</ion-label>
-                <ion-select required="" type="text" [(ngModel)]="type"   okText="Okay" cancelText="Dismiss" >
-                  <ion-option *ngFor="let type of types" [value]="type">{{type}}</ion-option>
-                </ion-select>
-            </ion-item>
-            <ion-item>
-                <button   (click)="openNavDetailsPage(item)" >
-
-                  Start Location
-              </button>
+  <ion-list class="my-menu" >
+              <ion-item (click)="startloc()" >
+                  <ion-icon name="locate"></ion-icon>
+                      Start location
+                      <ion-icon name="arrow-forward" style="float:right;" ></ion-icon>
               </ion-item>
+
+  <form [formGroup]="tripform" (submit)="save()" novalidate>
+
+              <ion-item >
+                  <ion-label stacked style="color:aliceblue">Date</ion-label>
+                  <ion-datetime type="string" formControlName="date" max="2019" [min]="minDate"
+                   displayFormat="DDDD:D/MM/YYYY">
+                  </ion-datetime>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label stacked style="color:aliceblue">Time</ion-label>
+                    <ion-datetime type="string"  formControlName="time" displayFormat="h:m a"
+                     ></ion-datetime>
+                  </ion-item>
+
               <ion-item>
-              <button ion-button  (click)="openNavDetailsPage(item)" >
-
-                   Location 1
-                  </button>
+                  <ion-label class="white-font" style="color:aliceblue">Trip Type</ion-label>
+                  <ion-select formControlName="type" required="" type="text"  okText="Okay"
+                   cancelText="Dismiss" >
+                    <ion-option *ngFor="let type of types"  [value]="type">{{type}}</ion-option>
+                  </ion-select>
               </ion-item>
-              <button ion-item *ngFor="let item of items" (click)="openNavDetailsPage(item)" icon-start>
-                     <ion-icon [name]="'logo-' + item.icon" [ngStyle]="{'color': item.color}" item-start></ion-icon>
-                  Location 2
-                  </button>
 
-                <button ion-item *ngFor="let item of items" (click)="openNavDetailsPage(item)" icon-start>
-                       <ion-icon [name]="'logo-' + item.icon" [ngStyle]="{'color': item.color}" item-start></ion-icon>
-                    Location 3
-                    </button>
+              <ion-item *ngIf="first_time != true">
+                  <ion-row>
+                    <ion-col >
+                        <button ion-button type="submit" full round [disabled]="!tripform.valid || !isenabled ">
+                            Create
+                          </button>
+                    </ion-col>
+                  </ion-row>
+              </ion-item>
 
+                <ion-item *ngIf="first_time==true">
+                    <ion-row>
+                        <ion-col >
+                            <button ion-button type="submit" full round [disabled]="!tripform.valid || !isenabled ">
+                                Done
+                              </button>
+                        </ion-col>
+                    </ion-row>
+                </ion-item>
+             </form>
 
-</ion-content>
+             <ion-item *ngIf="first_time != true">
+                  <ion-row>
+                    <ion-col>
+                        <button ion-button  color="danger" full round (click)="openjointrip()" >
+                            Cancel
+                        </button>
+                    </ion-col>
+                  </ion-row>
+                </ion-item>
+
+                <ion-item>
+                    <ion-row>
+                        <ion-col width-50>
+                            <button ion-button full color="dark"  [disabled]="!tripform.valid || !isenabled"  round (click)="save1()" >
+                                Create another Trip
+                            </button>
+                        </ion-col>
+                      </ion-row>
+                </ion-item>
+
+            </ion-list>
+
+  </ion-content>

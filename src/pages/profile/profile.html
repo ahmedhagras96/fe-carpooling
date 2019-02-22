@@ -1,173 +1,208 @@
-<!--
-  Generated template for the ProfilePage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
+
+
 <ion-header>
+
     <ion-navbar color="primary">
-      <ion-title>Profile</ion-title>
-      <ion-buttons end>
-        <button ion-button icon-only (click)="logOut()">
-          <ion-icon name="log-out"></ion-icon>
-        </button>
-      </ion-buttons>
+      <ion-row>
+        <ion-col col-2 >
+         <ion-buttons>
+           <button ion-button  left icon-only (click)="returnto_jointrip()" >
+            <ion-icon name="arrow-round-back"></ion-icon>
+            </button>
+          </ion-buttons>
+        </ion-col>
+
+        <ion-col col-6  >
+           <img  [src]="this.myPhotoURL">
+        </ion-col>
+
+        <ion-col col-4>
+         </ion-col>
+
+    </ion-row>
+
+          <ion-buttons right>
+            <button ion-button icon-only  (click)="logOut()">
+              <ion-icon name="log-out"></ion-icon>
+            </button>
+          </ion-buttons>
+
     </ion-navbar>
-  </ion-header>
 
-  <ion-content padding class="bg-image">
+</ion-header>
 
-      <ion-item >
-          <img  class="img" [src]="this.pimage.myPhotoURL" (click)="openMenu()" >
-         </ion-item>
 
-      <ion-list>
-        <ion-list-header>
-          Personal Information
-      </ion-list-header>
+<ion-content padding class="bg-image">
 
-      <ion-item (click)="updateName()">
-            <ion-grid>
-              <ion-row>
-                <ion-col col-6> Name </ion-col>
-                <ion-col col-6 *ngIf="userProfile?.name">
-                  {{userProfile?.name}}
-                </ion-col>
-                <ion-col col-6 class="placeholder-profile"
-                *ngIf="!userProfile?.name">
-                  <span> Tap here to edit. </span>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
+    <ion-label class="font_style">User Profile</ion-label>
+    <div><p><br></p></div>
+
+
+	<form [formGroup]="userprofile_form" (submit)="edituser()" novalidate>
+<ion-list class="my-menu" >
+    <ion-item>
+      <ion-label stacked style="color:aliceblue">Email</ion-label>
+      <ion-input  formControlName="email" type="email" value={{userdata.email}} placeholder={{userdata.email}}
+        [class.invalid]="!userprofile_form.controls.email.valid && blur">
+      </ion-input>
+    </ion-item>
+
+     <ion-item class="error-message" *ngIf="!userprofile_form.controls.email.valid
+    && userprofile_form.controls.email.touched">
+      <p style="color:aliceblue">Please enter a valid email.</p>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label stacked style="color:aliceblue">Full name</ion-label>
+      <ion-input formControlName="name" type="text" value="{{userdata.name}}" placeholder={{userdata.name}}
+      [class.invalid]="!userprofile_form.controls.name.valid && blur">
+      </ion-input>
+    </ion-item>
+
+    <ion-item class="error-message"
+    *ngIf="!userprofile_form.controls.name.valid  &&
+    userprofile_form.controls.name.touched">
+      <p style="color:aliceblue">Your name is must not exceed 20 letters</p>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label stacked style="color:aliceblue">College Id</ion-label>
+      <ion-input formControlName="id" type="number" value={{userdata.code}} placeholder={{userdata.code}}
+      [class.invalid]="!userprofile_form.controls.id.valid && blur">
+
+      </ion-input>
+    </ion-item>
+
+    <ion-item class="error-message"
+    *ngIf="!userprofile_form.controls.id.valid  &&
+    userprofile_form.controls.id.touched">
+      <p style="color:aliceblue">Your id is not correct</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked style="color:aliceblue">Phone Number</ion-label>
+      <ion-input formControlName="phone" type="number" value={{userdata.phone}} placeholder={{userdata.phone}}
+      [class.invalid]="!userprofile_form.controls.phone.valid && blur">
+
+      </ion-input>
+    </ion-item>
+
+    <ion-item class="error-message"
+    *ngIf="!userprofile_form.controls.phone.valid  &&
+    userprofile_form.controls.phone.touched">
+      <p style="color:aliceblue">please enter avalid phone number</p>
+    </ion-item>
+
+
+  <ion-item>
+  <ion-label style="color:aliceblue">college</ion-label>
+  <ion-select required="" type="text"  okText="Okay"
+   cancelText="Dismiss" [(ngModel)]="ccollege" [ngModelOptions]="{standalone: true}">
+    <ion-option *ngFor="let ccollege of collages" >{{ccollege}}</ion-option>
+  </ion-select>
+</ion-item>
+
+<ion-item>
+    <ion-label style="color:aliceblue">college chosen</ion-label>
+<ion-input style="color:aliceblue" formControlName="college" type="text"  readonly
+ value={{ccollege}} (ionChange)="onCollegeChange()"
+      [class.invalid]="!userprofile_form.controls.college.valid && blur">
+ </ion-input>
+</ion-item>
+
+
+ <ion-item>
+  <ion-label style="color:aliceblue">Department</ion-label>
+  <ion-select required="" type="text"  [(ngModel)]="cdepartment"
+   [ngModelOptions]="{standalone: true}"> okText="Okay"
+   cancelText="Dismiss" style="background-image: none !important">
+    <ion-option *ngFor="let department of departments"  >{{department}}</ion-option>
+  </ion-select>
+</ion-item>
+
+<ion-item>
+    <ion-label style="color:aliceblue">department chosen</ion-label>
+<ion-input style="color:aliceblue" formControlName="department" type="text"  readonly
+ value={{cdepartment}} placeholder={{cdepartment}}
+      [class.invalid]="!userprofile_form.controls.department.valid && blur">
+ </ion-input>
+</ion-item>
+
+
+
+<ion-item>
+    <ion-label stacked style="color:aliceblue">Car Type</ion-label>
+    <ion-input formControlName="ctype" type="text" placeholder="Your Car Type" value={{cardata.type}}
+    [class.invalid]="!userprofile_form.controls.ctype.valid && blur">
+    </ion-input>
+  </ion-item>
+
+  <ion-item class="error-message"
+  *ngIf="!userprofile_form.controls.ctype.valid  &&
+  userprofile_form.controls.ctype.touched">
+    <p>please enter your car type</p>
+  </ion-item>
+
+  <ion-item>
+      <ion-label stacked style="color:aliceblue">Car Model</ion-label>
+      <ion-datetime [(ngModel)]="car_cmodel"
+      [ngModelOptions]="{standalone: true}"  displayFormat="YYYY"
+       ></ion-datetime>
+    </ion-item>
+
+
+    <ion-item>
+        <ion-label style="color:aliceblue">Car model chosen</ion-label>
+    <ion-input style="color:aliceblue" formControlName="cmodel" type="text"  readonly
+     value={{car_cmodel}}
+          [class.invalid]="!userprofile_form.controls.department.valid && blur">
+     </ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label stacked style="color:aliceblue">Car color</ion-label>
+        <ion-input formControlName="ccolor" type="text" placeholder="Your Car color" value={{cardata.color}}
+        [class.invalid]="!userprofile_form.controls.ccolor.valid && blur">
+        </ion-input>
       </ion-item>
 
-      <ion-item (click)="updateid()">
-              <ion-grid>
-                <ion-row>
-                  <ion-col col-6> ID </ion-col>
-                  <ion-col col-6 *ngIf="userProfile?.id">
-                    {{userProfile?.id}}
-                  </ion-col>
-                  <ion-col col-6 class="placeholder-profile"
-                  *ngIf="!userProfile?.id">
-                    <span> Tap here to edit. </span>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
+      <ion-item class="error-message"
+      *ngIf="!userprofile_form.controls.ccolor.valid  &&
+      userprofile_form.controls.ccolor.touched">
+        <p>please enter your car color</p>
       </ion-item>
 
-      <ion-item (click)="updateEmail()">
-              <ion-grid>
-                <ion-row>
-                  <ion-col col-6> Email </ion-col>
-                  <ion-col col-6 *ngIf="userProfile?.email">
-                    {{userProfile?.email}}
-                  </ion-col>
-                  <ion-col col-6 class="placeholder-profile" *ngIf="!userProfile?.email">
-                    <span> Tap here to edit. </span>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-      </ion-item>
+      <ion-item>
+          <ion-label stacked style="color:aliceblue">Car number</ion-label>
+          <ion-input formControlName="cnumber" type="text" placeholder="Your Car number" value={{cardata.number}}
+          [class.invalid]="!userprofile_form.controls.cnumber.valid && blur">
+          </ion-input>
+        </ion-item>
 
-      <ion-item (click)="updatePassword()">
-                <ion-grid>
-                  <ion-row>
-                    <ion-col col-6> Password </ion-col>
-                    <ion-col col-6 class="placeholder-profile">
-                      <span> Tap here to edit. </span>
-                    </ion-col>
-                  </ion-row>
-                </ion-grid>
-      </ion-item>
+        <ion-item class="error-message"
+        *ngIf="!userprofile_form.controls.cnumber.valid  &&
+        userprofile_form.controls.cnumber.touched">
+          <p>please enter your car number</p>
+        </ion-item>
 
 
-      <ion-item (click)="updatephone()">
-                <ion-grid>
-                  <ion-row>
-                    <ion-col col-6> Phone Number </ion-col>
-                    <ion-col col-6 *ngIf="userProfile?.phone">
-                      {{userProfile?.phone}}
-                    </ion-col>
-                    <ion-col col-6 class="placeholder-profile"
-                    *ngIf="!userProfile?.phone">
-                      <span> Tap here to edit. </span>                      </ion-col>
-                    </ion-row>
-                </ion-grid>
-      </ion-item>
+    <button ion-button block round type="submit" [disabled]="!userprofile_form.valid" >
+      Save Changes
+    </button>
 
-      <div><p><br></p></div>
+</ion-list>
+</form>
 
-      <ion-item >
-                    <ion-label>Car information
-                    <p>(update next part if you have a car)</p></ion-label>
-      </ion-item>
-
-      <ion-item (click)="updatectype()">
-                 <ion-grid>
-                      <ion-row>
-                        <ion-col col-6> Car type </ion-col>
-                        <ion-col col-6 *ngIf="userProfile?.cartype">
-                          {{userProfile?.cartype}}
-                        </ion-col>
-                        <ion-col col-6 class="placeholder-profile"
-                        *ngIf="!userProfile?.cartype">
-                          <span> Tap here to edit. </span>
-                        </ion-col>
-                      </ion-row>
-                </ion-grid>
-      </ion-item>
+<ion-item>
+    <button round full ion-icon ion-button  (click)="startloc()">
+        <ion-icon name="locate"></ion-icon>
+            change Your Location
+            <ion-icon name="arrow-forward" style="float:right;" ></ion-icon>
+  </button>
+</ion-item>
 
 
-
-      <ion-item (click)="updatecmodel()">
-                 <ion-grid>
-                        <ion-row>
-                          <ion-col col-6> Car Model </ion-col>
-                          <ion-col col-6 *ngIf="userProfile?.carmodel">
-                            {{userProfile?.carmodel}}
-                          </ion-col>
-                          <ion-col col-6 class="placeholder-profile"
-                          *ngIf="!userProfile?.carmodel">
-                            <span> Tap here to edit(Ex:2002). </span>
-                          </ion-col>
-                        </ion-row>
-                 </ion-grid>
-      </ion-item>
-
-     <ion-item (click)="updateccolor()">
-                 <ion-grid>
-                          <ion-row>
-                            <ion-col col-6> Car Color </ion-col>
-                            <ion-col col-6 *ngIf="userProfile?.carcolor">
-                              {{userProfile?.carcolor}}
-                            </ion-col>
-                            <ion-col col-6 class="placeholder-profile"
-                            *ngIf="!userProfile?.carcolor">
-                              <span> Tap here to edit </span>
-                            </ion-col>
-                          </ion-row>
-                 </ion-grid>
-      </ion-item>
-
-      <ion-item (click)=" updatecnumber()">
-                 <ion-grid>
-                          <ion-row>
-                              <ion-col col-6> Car Model </ion-col>
-                              <ion-col col-6 *ngIf="userProfile?.carnumber">
-                                {{userProfile?.carnumber}}
-                              </ion-col>
-                              <ion-col col-6 class="placeholder-profile"
-                              *ngIf="!userProfile?.carnumber">
-                                <span> Tap here to edit </span>
-                              </ion-col>
-                            </ion-row>
-                        </ion-grid>
-                  </ion-item>
-
-
-
-
-
-      </ion-list>
-    </ion-content>
+</ion-content>

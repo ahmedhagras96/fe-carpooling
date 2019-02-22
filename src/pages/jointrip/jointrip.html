@@ -1,37 +1,109 @@
-<!--
-  Generated template for the JointripPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>jointrip</ion-title>
+  <ion-navbar color="primary">
+      <button ion-button menuToggle left>
+          <ion-icon name='menu'></ion-icon>
+        </button>
+
+        <img  [src]="this.myPhotoURL">
+
+    <ion-buttons end>
+        <button ion-button icon-only (click)="openprofile()"
+        [disabled]="no_car==true || no_location==true">
+          <ion-icon name="person"></ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-    <ion-item>
-        <ion-label>Day</ion-label>
-        <ion-select required="" type="text" [(ngModel)]="day" okText="Okay" cancelText="Dismiss"
-        placeholder={{userschedule?.sattype}}>
-            <ion-option *ngFor="let day of days" [value]="day" >{{day}}</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-          <ion-label>start</ion-label>
-          <ion-select required="" type="text" [(ngModel)]="time"   okText="Okay" cancelText="Dismiss" >
-            <ion-option *ngFor="let time of times" [value]="time">{{time}}</ion-option>
-          </ion-select>
-      </ion-item>
-      <ion-item>
-          <ion-label>Trip Type</ion-label>
-          <ion-select required="" type="text" [(ngModel)]="type"   okText="Okay" cancelText="Dismiss" >
-            <ion-option *ngFor="let type of types" [value]="type">{{type}}</ion-option>
-          </ion-select>
-      </ion-item>
+<ion-content padding class="bg-image" >
+
+
+    <ion-menu [content]="content" >
+
+        <ion-header>
+            <ion-toolbar color="primary">
+              <ion-title>Menu</ion-title>
+            </ion-toolbar>
+          </ion-header>
+
+        <ion-content>
+          <ion-list>
+            <button  ion-item (click)="openmaketrip()" [disabled]="no_car==true && no_location==true">
+             Create a Trip
+            </button>
+            <button ion-item (click)="openmytrips()">
+                Trips As A Driver
+               </button>
+            <button ion-item (click)="openmytrips_passenger()">
+                Trips As A Passenger
+              </button>
+            <button ion-item (click)="openprizes()">
+              Prizes
+            </button>
+          </ion-list>
+        </ion-content>
+      </ion-menu>
+
+      <ion-nav id="nav" #content [root]="rootPage"></ion-nav>
+
+      <ion-label class="font_style">Welcome Back!  </ion-label>
+      <ion-label class="fontsmall">"<b>Please</b> make sure that mobile networks and<br>
+         gps are turned on before using the application"  </ion-label>
+      <ion-label class="font_style_pts">Reward pts:{{user_pts}} </ion-label>
+    <ion-label class="font">Join A Carpooling Trip  </ion-label>
+
+ <div><p><br><br></p></div>
+ <ion-label color="danger" *ngIf="driver_length == 0">
+    <b>Please</b> You must display at least one trip <br>as a driver to join other trips </ion-label>
+
+    <ion-label color="danger" *ngIf="no_car == true">
+      <b>Please</b> complete your data to be able to use the app <br>
+       corretly.Go to car information and fill car data  </ion-label>
+       <button ion-button full block round (click)="open_carinfo()" *ngIf="no_car == true" >
+          Go to car information
+    </button>
+
+    <ion-label color="danger" *ngIf="no_location == true">
+      <b>Please</b> complete your data to be able to use the app <br>
+       corretly.Go set location page and add your <br>location as a passenger  </ion-label>
+       <button ion-button full block round (click)="open_setlocation()" *ngIf="no_location == true" >
+          Go to set location
+    </button>
+
+  <form [formGroup]="jointripform" (submit)="search()" novalidate>
+
+<ion-list class="my-menu" >
+  <ion-item>
+      <ion-label stacked style="color:aliceblue">Date</ion-label>
+   <ion-datetime formControlName="date" max="2019" [min]="minDate"  displayFormat="DDDD:D/MMM/YYYY"
+    ></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="color:aliceblue">Trip Type</ion-label>
+    <ion-select formControlName="type" required="" type="text"  okText="Okay" cancelText="Dismiss" >
+      <ion-option *ngFor="let type of types" [value]="type">{{type}}</ion-option>
+    </ion-select>
+  </ion-item>
+</ion-list>
+
+<div><p><br></p></div>
+
+   <button ion-button color="dark"  class="button1"  type="submit"  round
+    [disabled]="!jointripform.valid ||driver_length == 0 || undata==true ">
+           <div class="space"> Search</div>
+   </button>
+  </form>
+
+<div><p><br></p></div>
+
+<button ion-button full block round (click)="openmaketrip()" [disabled]="undata==true " >
+      OR Create A New Trip
+</button>
+
 
 </ion-content>

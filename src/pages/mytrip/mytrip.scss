@@ -1,0 +1,83 @@
+page-mytrip {
+  .bg-image{
+    background-image: url('../assets/imgs/ak3.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: fill;
+}
+
+.img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.my-title {
+  display: flex;
+  align-items: center;
+}
+
+.right{
+  background-color:  rgba(0, 0, 0, 0);
+  // position: relative;
+  // left: 50%;
+  // text-align: right;
+}
+
+.font_style{
+  position: relative;
+  top: 3%;
+  bottom: 1%;
+  text-align: center;
+  font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
+  font-size: 28px;
+}
+
+.first_font_style{
+  position: relative;
+  bottom: 1%;
+  text-align: center;
+  font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
+  font-size: 28px;
+}
+
+.font_style_tag{
+  color: rgb(54, 139, 250);
+  position: relative;
+  left:3%;
+  text-align: center;
+  font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
+  font-size: 18px;
+}
+
+.toolbar-background {
+  background-color: rgba(247, 244, 244, 0.37);
+}
+
+.nav_color{
+  border-bottom: 3px solid rgb(54, 139, 250);
+}
+
+.my-menu {
+  background-color:  rgba(0, 0, 0, 0.322);
+  position: relative;
+  top: 3%;
+  bottom: 100px;
+  border: 3px solid rgb(54, 139, 250);
+  border-radius: 10px;
+  }
+
+  .my-menu1 {
+    // background-color:  rgb(247, 242, 242);
+    position: relative;
+    top: 3%;
+    bottom: 100px;
+    border: 3px solid rgb(54, 139, 250);
+    border-radius: 10px;
+    }
+
+.my-menu .item, .my-menu .item-content, .my-menu .item-complex{
+  background-color: rgba(0, 0, 0, 0);
+  color: #FFFFFF;
+  }
+}

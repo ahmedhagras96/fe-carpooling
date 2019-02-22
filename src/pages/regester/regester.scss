@@ -3,7 +3,14 @@ page-regester {
     border-bottom: 1px solid #ff6153;
   }
 
-
+  .font_style{
+    position: relative;
+    top: 1%;
+    text-align: center;
+    font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
+    font-size: 28px;
+    color:rgb(54, 139, 250);
+  }
 
 .bg-image{
         background-image: url('../assets/imgs/ak3.png');
@@ -11,6 +18,19 @@ page-regester {
         background-position: center;
         background-size: fill;
 }
+
+.my-menu {
+  background-color: rgba(0, 0, 0, 0.322);
+  position: relative;
+  border: 3px solid rgb(54, 139, 250);
+  border-radius: 10px;
+  }
+
+  .my-menu .item, .my-menu .item-content, .my-menu .item-complex{
+    background-color: rgba(0, 0, 0, 0);
+    color: #FFFFFF;
+
+    }
 
 .img {
   border-radius: 50%;
